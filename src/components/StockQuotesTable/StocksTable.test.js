@@ -4,16 +4,17 @@ import { shallow } from 'enzyme';
 import { findByTestAttr } from '../../../test/testUtils';
 import StocksTable from './StocksTable';
 
+/**
+ * Factory function to create a ShallowWrapper for the StocksTable component.
+ * @function setup
+ * @param {Array} stocks - stocks value specific to this setup.
+ * @returns {ShallowWrapper}
+ */
 const setup = (stocks=[]) => {
   return shallow(<StocksTable stocks={stocks} />);
 }
 
 describe('StocksTable component', () => {
-  test('should render without error', () => {
-    const wrapper = setup([{ stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: '313.05' }])
-    const stocksTable = findByTestAttr(wrapper, 'component-stocks-table');
-    expect(stocksTable.exists()).toBe(true);
-  });
   describe('without stocks loaded', () => {
     test('should render loading spinner', () => {
      const wrapper = setup();
@@ -22,8 +23,13 @@ describe('StocksTable component', () => {
     });
   });
   describe('with stocks loaded', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = setup([{ stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: '313.05' }])
+    })
     test('should render stocks table', () => {
-      
+      const stocksTable = findByTestAttr(wrapper, 'component-stocks-table');
+      expect(stocksTable.exists()).toBe(true);
     });
   });
 });

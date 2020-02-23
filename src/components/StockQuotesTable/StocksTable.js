@@ -15,7 +15,9 @@ const StocksTable = ({ stocks }) => {
 
   return (
     <div data-test="component-stocks-table">
-      
+      <table className="table table-md">
+
+      </table>
     </div>
   )
 }
