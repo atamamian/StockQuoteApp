@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from './App';
 import { findByTestAttr } from '../test/testUtils';
+import App from './App';
 
 const setup = () => {
   return shallow(<App />)
@@ -11,6 +11,7 @@ const setup = () => {
 describe('App Component', () => {
   test('should render without error', () => {
     const wrapper = setup();
-    expect(wrapper.exists()).toBe(true);
+    const appComponent = findByTestAttr(wrapper, 'component-app');
+    expect(appComponent.exists()).toBe(true);
   });
 });
