@@ -24,12 +24,23 @@ describe('StocksTable component', () => {
   });
   describe('with stocks loaded', () => {
     let wrapper;
+    const stocks = [
+      { 
+        stockName: 'Apple', 
+        stockSymbol: 'AAPL', 
+        stockPrice: '313.05'
+      },
+    ]
     beforeEach(() => {
-      wrapper = setup([{ stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: '313.05' }])
+      wrapper = setup(stocks)
     })
     test('should render stocks table', () => {
       const stocksTable = findByTestAttr(wrapper, 'component-stocks-table');
       expect(stocksTable.exists()).toBe(true);
+    });
+    test('should render correct number of stocks', () => {
+      const stockNodes = findByTestAttr(wrapper, 'stock-cell');
+      expect(stockNodes.length).toBe(stocks.length);
     });
   });
 });
