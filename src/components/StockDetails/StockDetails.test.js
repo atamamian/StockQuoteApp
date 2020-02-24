@@ -31,6 +31,11 @@ describe('StockDetails component', () => {
       const stockDetailsComponent = findByTestAttr(wrapper, 'component-stock-details');
       expect(stockDetailsComponent.exists()).toBe(false);
     });
+    test('should render loading spinner', () => {
+      const wrapper = setup();
+      const loadingSpinner = findByTestAttr(wrapper, 'loading-spinner');
+      expect(loadingSpinner.exists()).toBe(true); 
+    });
   });
   describe('stock selected', () => {
     let wrapper;

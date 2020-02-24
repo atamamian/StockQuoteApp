@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 
 const StockDetails = ({ stock }) => {
   if (!stock) {
-    return null;
+    return (
+      <div data-test="loading-spinner" className="container">
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+        <p>Loading stock details</p>
+      </div>
+    )
   }
 
   return(
