@@ -1,6 +1,9 @@
 import React from 'react';
 
+import selectedStockContext from '../../contexts/selectedStockContext';
+
 const StocksTable = ({ stocks }) => {
+  const [selectedStock, setSelectedStock] = selectedStockContext.useSelectedStock();
 
   if(stocks.length === 0) {
     return (
@@ -14,7 +17,12 @@ const StocksTable = ({ stocks }) => {
   }
 
   const stockCells = stocks.map((stock) => (
-    <td data-test="stock-cell" key={stock.stockSymbol} className="align-middle">
+    <td 
+      data-test="stock-cell" 
+      key={stock.stockSymbol} 
+      className="align-middle"
+      onClick={() => setSelectedStock({ ...stock })}
+    >
       {stock.stockName}
       <br/>
       <span className="text-secondary">{`(${stock.stockSymbol})`}</span>

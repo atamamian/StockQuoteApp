@@ -2,7 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import { findByTestAttr } from '../../../test/testUtils';
-import StockDetails from './StockDetails';
+import StockDetails from './';
 import selectedStockContext from '../../contexts/selectedStockContext';
 import hookActions from '../../actions/hookActions';
 

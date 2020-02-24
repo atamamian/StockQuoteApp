@@ -2,7 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { findByTestAttr } from '../../../test/testUtils';
-import StocksTable from './StocksTable';
+import selectedStockContext from '../../contexts/selectedStockContext';
+import StocksTable from './';
+
+const mockSetSelectedStock = jest.fn();
 
 /**
  * Factory function to create a ShallowWrapper for the StocksTable component.
@@ -10,7 +13,10 @@ import StocksTable from './StocksTable';
  * @param {Array} stocks - stocks value specific to this setup.
  * @returns {ShallowWrapper}
  */
-const setup = (stocks=[]) => {
+const setup = (stocks=[], selectedStock={}) => {
+  const mockUseSelectedStock = jest.fn().mockReturnValue([selectedStock, mockSetSelectedStock]);
+  selectedStockContext.useSelectedStock = mockUseSelectedStock;
+
   return shallow(<StocksTable stocks={stocks} />);
 }
 
@@ -28,7 +34,7 @@ describe('StocksTable component', () => {
       { 
         stockName: 'Apple', 
         stockSymbol: 'AAPL', 
-        stockPrice: 313.05
+        stockPrice: null
       },
     ]
     beforeEach(() => {
@@ -41,6 +47,25 @@ describe('StocksTable component', () => {
     test('should render correct number of stocks', () => {
       const stockNodes = findByTestAttr(wrapper, 'stock-cell');
       expect(stockNodes.length).toBe(stocks.length);
+    });    
+  });
+  describe('stock selection events', () => {
+    let wrapper;
+    const stocks = [
+      { 
+        stockName: 'Apple', 
+        stockSymbol: 'AAPL', 
+        stockPrice: null
+      },
+    ]
+    beforeEach(() => {
+      wrapper = setup(stocks, stocks[0])
+    })
+    test('should call `setSelectedStock` on stock cell click', () => {
+      mockSetSelectedStock.mockClear();
+      const stockCell = findByTestAttr(wrapper, 'stock-cell');
+      stockCell.simulate('click');
+      expect(mockSetSelectedStock.mock.calls.length).toBe(1);
     });
   });
 });
