@@ -17,25 +17,25 @@ const StocksTable = ({ stocks }) => {
   }
 
   const stockCells = stocks.map((stock) => (
-    <td 
-      data-test="stock-cell" 
-      key={stock.stockSymbol} 
-      className="align-middle"
-      onClick={() => setSelectedStock({ ...stock })}
-    >
-      {stock.stockName}
-      <br/>
-      <span className="text-secondary">{`(${stock.stockSymbol})`}</span>
-    </td> 
+    <tr>
+      <td 
+        data-test="stock-cell" 
+        key={stock.stockSymbol} 
+        className="align-middle text-center bg-light border"
+        onClick={() => setSelectedStock({ ...stock })}
+      >
+        {stock.stockName}
+        <br/>
+        <span className="text-secondary">{`(${stock.stockSymbol})`}</span>
+      </td> 
+    </tr>
   ))
 
   return (
     <div data-test="component-stocks-table" className="container">
       <table className="table table-md">
         <tbody>
-          <tr>
             { stockCells }
-          </tr>
         </tbody>
       </table>
     </div>

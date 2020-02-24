@@ -15,7 +15,7 @@ const StockDetails = () => {
 
   if (!selectedStock.stockPrice) {
     return (
-      <div data-test="loading-spinner" className="container">
+      <div data-test="loading-spinner" className="container mx-auto text-center mt-5">
         <div className="spinner-border" role="status">
           <span className="sr-only">Loading...</span>
         </div>
@@ -25,7 +25,7 @@ const StockDetails = () => {
   }
 
   return(
-    <div data-test="component-stock-details" className="container">
+    <div data-test="component-stock-details" className="container mx-auto text-center mt-5">
       <h1 data-test="selected-stock-name">{selectedStock.stockName}</h1>
       <h3>{selectedStock.stockSymbol}</h3>
       <p>{`Current price: ${selectedStock.stockPrice}`}</p>
