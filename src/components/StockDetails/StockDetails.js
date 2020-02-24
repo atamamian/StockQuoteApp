@@ -1,10 +1,16 @@
 import React from 'react';
 
 import selectedStockContext from '../../contexts/selectedStockContext';
+import hookActions from '../../actions/hookActions';
 
 const StockDetails = () => {
-  const [selectedStock] = selectedStockContext.useSelectedStock();
-  
+  const [selectedStock, setSelectedStock] = selectedStockContext.useSelectedStock();
+
+  React.useEffect(
+    () => { hookActions.getStockQuote(selectedStock, setSelectedStock) },
+    []
+  )
+
   if (!selectedStock) {
     return (
       <div data-test="loading-spinner" className="container">

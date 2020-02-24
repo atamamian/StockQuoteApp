@@ -1,6 +1,6 @@
 import moxios from 'moxios';
 
-import { getStockQuote, getSymbolsList, getCompanyProfile } from './hookActions';
+import { getStockQuote } from './hookActions';
 
 describe('moxios tests', () => {
   beforeEach(() => {
@@ -11,22 +11,23 @@ describe('moxios tests', () => {
   });
 
   test('should call the getStockQuote callback on axios response', async () => {
-    const stockQuote = { stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: 313.05 };
+    const selectedStock = { stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: null };
+    const selectedStockQuote = { "c": 313.05 };
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
         status: 200,
-        response: stockQuote,
+        response: selectedStockQuote,
       });
     });
 
     // create mock for callback arg
-    const mockSetStockQuote = jest.fn();
+    const mockSetSelectedStock = jest.fn();
 
-    await getStockQuote(stockQuote.stockSymbol, mockSetStockQuote);
+    await getStockQuote(selectedStock, mockSetSelectedStock);
 
     // see if mock was run with correct argument
-    expect(mockSetStockQuote).toHaveBeenCalledWith(stockQuote);
+    expect(mockSetSelectedStock).toHaveBeenCalledWith({ ...selectedStock, stockPrice: selectedStockQuote["c"] });
   });
 });

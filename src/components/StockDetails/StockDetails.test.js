@@ -1,9 +1,12 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { findByTestAttr } from '../../../test/testUtils';
 import StockDetails from './StockDetails';
 import selectedStockContext from '../../contexts/selectedStockContext';
+import hookActions from '../../actions/hookActions';
+
+const mockGetStockQuote = jest.fn();
 
 /**
  * Factory function to create a ShallowWrapper for the StockDetails component.
@@ -12,15 +15,14 @@ import selectedStockContext from '../../contexts/selectedStockContext';
  * @returns {ShallowWrapper}
  */
 const setup = (selectedStock=null) => {
+  mockGetStockQuote.mockClear();
+  hookActions.getStockQuote = mockGetStockQuote;
+
   const mockUseSelectedStock = jest.fn().mockReturnValue([selectedStock, jest.fn()]);
   selectedStockContext.useSelectedStock = mockUseSelectedStock;
-  return shallow(<StockDetails />);
-}
 
-const selectedStock = {
-  stockName: 'Apple',
-  stockSymbol: 'AAPL',
-  stockPrice: 313.05
+  // use mount, because useEffect is not called on `shallow`
+  return mount(<StockDetails />);
 }
 
 describe('StockDetails component', () => {
@@ -38,6 +40,11 @@ describe('StockDetails component', () => {
   });
   describe('stock selected', () => {
     let wrapper;
+    const selectedStock = {
+      stockName: 'Apple',
+      stockSymbol: 'AAPL',
+      stockPrice: 313.05
+    }
     beforeEach(() => {
       wrapper = setup(selectedStock);
     })
@@ -49,6 +56,25 @@ describe('StockDetails component', () => {
       const selectedStockNameNode = findByTestAttr(wrapper, 'selected-stock-name');
       expect(selectedStockNameNode.text()).toBe(selectedStock.stockName);
     });
+    describe('`getStockQuote` calls', () => {
+      test('should call once on component mount', () => {
+        setup();
+    
+        // check to see if selectedStock was updated
+        expect(mockGetStockQuote).toHaveBeenCalled();
+      });
+      test('should not call on component update', () => {
+        const wrapper = setup();
+    
+        // clear mock function after component mount
+        mockGetStockQuote.mockClear();
+    
+        // re-render component
+        wrapper.setProps();
+    
+        // check to see if mock function does not run on update
+        expect(mockGetStockQuote).not.toHaveBeenCalled();
+      });
+    });
   });
 });
-
