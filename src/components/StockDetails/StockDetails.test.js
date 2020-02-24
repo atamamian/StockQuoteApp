@@ -32,8 +32,15 @@ describe('StockDetails component', () => {
       const stockDetailsComponent = findByTestAttr(wrapper, 'component-stock-details');
       expect(stockDetailsComponent.exists()).toBe(false);
     });
+  });
+  describe('stock selected but details still loading', () => {
     test('should render loading spinner', () => {
-      const wrapper = setup();
+      const selectedStock = {
+        stockName: 'Apple',
+        stockSymbol: 'AAPL',
+        stockPrice: null
+      }
+      const wrapper = setup(selectedStock);
       const loadingSpinner = findByTestAttr(wrapper, 'loading-spinner');
       expect(loadingSpinner.exists()).toBe(true); 
     });
