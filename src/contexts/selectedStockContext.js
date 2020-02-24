@@ -26,7 +26,7 @@ function useSelectedStock() {
 function SelectedStockProvider(props) {
   // create state that will be used within the provider
   // initial state value is an empty object {}
-  const [selectedStock, setSelectedStock] = React.useState({});
+  const [selectedStock, setSelectedStock] = React.useState(null);
 
   // value for the context provider will be array of [value, setter] for selectedStock state.
   const value = React.useMemo(() => [selectedStock, setSelectedStock], [selectedStock]);

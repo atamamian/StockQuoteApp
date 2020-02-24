@@ -10,6 +10,18 @@ describe('moxios tests', () => {
     moxios.uninstall();
   });
 
+  test('should not run if no `selectedStock` exists', async () => {
+    const selectedStock = null;
+
+    // create mock for callback arg
+    const mockSetSelectedStock = jest.fn();
+
+    await getStockQuote(selectedStock, mockSetSelectedStock);
+
+    // expect mock not to run due to empty `selectedStock`
+    expect(mockSetSelectedStock).not.toHaveBeenCalled();
+  });
+
   test('should call the getStockQuote callback on axios response', async () => {
     const selectedStock = { stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: null };
     const selectedStockQuote = { "c": 313.05 };

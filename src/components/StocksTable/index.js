@@ -33,7 +33,9 @@ const StocksTable = ({ stocks }) => {
     <div data-test="component-stocks-table" className="container">
       <table className="table table-md">
         <tbody>
-          { stockCells }
+          <tr>
+            { stockCells }
+          </tr>
         </tbody>
       </table>
     </div>

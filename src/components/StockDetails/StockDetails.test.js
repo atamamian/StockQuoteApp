@@ -56,7 +56,7 @@ describe('StockDetails component', () => {
       const selectedStockNameNode = findByTestAttr(wrapper, 'selected-stock-name');
       expect(selectedStockNameNode.text()).toBe(selectedStock.stockName);
     });
-    describe('`getStockQuote` calls', () => {
+    describe('`getStockQuote` action', () => {
       test('should call once on component mount', () => {
         setup();
     

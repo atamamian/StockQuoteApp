@@ -7,11 +7,14 @@ const StockDetails = () => {
   const [selectedStock, setSelectedStock] = selectedStockContext.useSelectedStock();
 
   React.useEffect(
-    () => { hookActions.getStockQuote(selectedStock, setSelectedStock) },
-    []
+    () => { hookActions.getStockQuote(selectedStock, setSelectedStock) }, [selectedStock]
   )
 
   if (!selectedStock) {
+    return null
+  }
+
+  if (!selectedStock.stockPrice) {
     return (
       <div data-test="loading-spinner" className="container">
         <div className="spinner-border" role="status">
