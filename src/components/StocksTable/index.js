@@ -3,7 +3,7 @@ import React from 'react';
 import selectedStockContext from '../../contexts/selectedStockContext';
 
 const StocksTable = ({ stocks }) => {
-  const [selectedStock, setSelectedStock] = selectedStockContext.useSelectedStock();
+  const [, setSelectedStock] = selectedStockContext.useSelectedStock();
 
   if(stocks.length === 0) {
     return (

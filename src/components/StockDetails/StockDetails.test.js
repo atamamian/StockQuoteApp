@@ -36,8 +36,8 @@ describe('StockDetails component', () => {
   describe('stock selected but details still loading', () => {
     test('should render loading spinner', () => {
       const selectedStock = {
-        stockName: 'Apple',
-        stockSymbol: 'AAPL',
+        stockName: 'Nike',
+        stockSymbol: 'NKE',
         stockPrice: null
       }
       const wrapper = setup(selectedStock);
@@ -47,12 +47,12 @@ describe('StockDetails component', () => {
   });
   describe('stock selected', () => {
     let wrapper;
-    const selectedStock = {
-      stockName: 'Apple',
-      stockSymbol: 'AAPL',
-      stockPrice: 313.05
-    }
     beforeEach(() => {
+      const selectedStock = {
+        stockName: 'Nike',
+        stockSymbol: 'NKE',
+        stockPrice: 100.25
+      }
       wrapper = setup(selectedStock);
     })
     test('should render component', () => {
@@ -60,27 +60,25 @@ describe('StockDetails component', () => {
       expect(stockDetailsComponent.exists()).toBe(true);
     });
     test('should render correct details for selected stock', () => {
+      const selectedStock = {
+        stockName: 'Nike',
+        stockSymbol: 'NKE',
+        stockPrice: 100.25
+      }
       const selectedStockNameNode = findByTestAttr(wrapper, 'selected-stock-name');
       expect(selectedStockNameNode.text()).toBe(selectedStock.stockName);
     });
     describe('`getStockQuote` action', () => {
-      test('should call once on component mount', () => {
-        setup();
+      const selectedStock = {
+        stockName: 'Nike',
+        stockSymbol: 'NKE',
+        stockPrice: null
+      }
+      test('should only call once if `selectedStock` has no price', () => {
+        setup(selectedStock);
     
-        // check to see if selectedStock was updated
-        expect(mockGetStockQuote).toHaveBeenCalled();
-      });
-      test('should not call on component update', () => {
-        const wrapper = setup();
-    
-        // clear mock function after component mount
-        mockGetStockQuote.mockClear();
-    
-        // re-render component
-        wrapper.setProps();
-    
-        // check to see if mock function does not run on update
-        expect(mockGetStockQuote).not.toHaveBeenCalled();
+        // check to see if getStockQuote was called once
+        expect(mockGetStockQuote.mock.calls.length).toBe(1);
       });
     });
   });

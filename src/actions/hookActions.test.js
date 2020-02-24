@@ -23,8 +23,8 @@ describe('moxios tests', () => {
   });
 
   test('should call the getStockQuote callback on axios response', async () => {
-    const selectedStock = { stockName: 'Apple', stockSymbol: 'AAPL', stockPrice: null };
-    const selectedStockQuote = { "c": 313.05 };
+    const selectedStock = { stockName: 'Nike', stockSymbol: 'NKE', stockPrice: null };
+    const selectedStockQuote = { "c": 100.25 };
 
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();

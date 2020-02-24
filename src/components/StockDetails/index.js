@@ -6,9 +6,8 @@ import hookActions from '../../actions/hookActions';
 const StockDetails = () => {
   const [selectedStock, setSelectedStock] = selectedStockContext.useSelectedStock();
 
-  React.useEffect(
-    () => { hookActions.getStockQuote(selectedStock, setSelectedStock) }, [selectedStock]
-  )
+  if(selectedStock && !selectedStock.stockPrice)
+    hookActions.getStockQuote(selectedStock, setSelectedStock);
 
   if (!selectedStock) {
     return null

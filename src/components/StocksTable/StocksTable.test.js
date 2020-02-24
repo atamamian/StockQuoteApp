@@ -32,8 +32,8 @@ describe('StocksTable component', () => {
     let wrapper;
     const stocks = [
       { 
-        stockName: 'Apple', 
-        stockSymbol: 'AAPL', 
+        stockName: 'Nike', 
+        stockSymbol: 'NKE', 
         stockPrice: null
       },
     ]
@@ -53,8 +53,8 @@ describe('StocksTable component', () => {
     let wrapper;
     const stocks = [
       { 
-        stockName: 'Apple', 
-        stockSymbol: 'AAPL', 
+        stockName: 'Nike', 
+        stockSymbol: 'NKE', 
         stockPrice: null
       },
     ]
