@@ -40,6 +40,6 @@ describe('moxios tests', () => {
     await getStockQuote(selectedStock, mockSetSelectedStock);
 
     // see if mock was run with correct argument
-    expect(mockSetSelectedStock).toHaveBeenCalledWith({ ...selectedStock, stockPrice: selectedStockQuote["c"] });
+    expect(mockSetSelectedStock).toHaveBeenCalledWith({ ...selectedStock, stockPrice: `$${parseFloat(selectedStockQuote["c"].toFixed(2))}` });
   });
 });

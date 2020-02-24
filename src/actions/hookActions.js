@@ -7,7 +7,7 @@ export const getStockQuote = async (selectedStock, setSelectedStock) => {
 
   if(!response.data) throw new Error(`Stock symbol not found: ${selectedStock.stockSymbol}`)
 
-  setSelectedStock({ ...selectedStock, stockPrice: parseFloat(response.data["c"].toFixed(2)) });
+  setSelectedStock({ ...selectedStock, stockPrice: `$${parseFloat(response.data["c"].toFixed(2))}` });
 }
 
 export default {
