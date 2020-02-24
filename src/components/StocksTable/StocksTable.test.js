@@ -59,13 +59,18 @@ describe('StocksTable component', () => {
       },
     ]
     beforeEach(() => {
-      wrapper = setup(stocks, stocks[0])
+      wrapper = setup(stocks, {})
     })
     test('should call `setSelectedStock` on stock cell click', () => {
       mockSetSelectedStock.mockClear();
       const stockCell = findByTestAttr(wrapper, 'stock-cell');
       stockCell.simulate('click');
       expect(mockSetSelectedStock.mock.calls.length).toBe(1);
+    });
+    test('should update `selectedStock` on stock cell click', () => {
+      const stockCell = findByTestAttr(wrapper, 'stock-cell');
+      stockCell.simulate('click');
+      expect(mockSetSelectedStock).toHaveBeenCalledWith({ ...stocks[0] })
     });
   });
 });
