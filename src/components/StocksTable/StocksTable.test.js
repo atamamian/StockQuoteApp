@@ -28,7 +28,7 @@ describe('StocksTable component', () => {
       { 
         stockName: 'Apple', 
         stockSymbol: 'AAPL', 
-        stockPrice: '313.05'
+        stockPrice: 313.05
       },
     ]
     beforeEach(() => {
