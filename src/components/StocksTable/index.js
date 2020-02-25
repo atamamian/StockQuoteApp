@@ -17,10 +17,11 @@ const StocksTable = ({ stocks }) => {
   }
 
   const stockCells = stocks.map((stock) => (
-    <tr>
+    <tr
+      key={stock.stockSymbol} 
+    >
       <td 
         data-test="stock-cell" 
-        key={stock.stockSymbol} 
         className="align-middle text-center bg-light border"
         onClick={() => setSelectedStock({ ...stock })}
       >
